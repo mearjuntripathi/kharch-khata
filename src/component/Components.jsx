@@ -361,11 +361,11 @@ function GivePopup({ onClose, giveList }) {
                     Close
                 </button>
                 <h2 className="popup-title">You Gave To</h2>
-                <div className="give-lists">
+                <div className="gived-lists">
                     {giveList.map((item, index) => (
-                        <div key={index} className="give">
-                            <span className="give-name">{item.name}</span>
-                            <span className="give-price">₹{item.price.toFixed(2)}</span>
+                        <div key={index} className="gived">
+                            <span className="gived-name">{item.name}</span>
+                            <span className="gived-price">₹{item.price.toFixed(2)}</span>
                         </div>
                     ))}
                 </div>

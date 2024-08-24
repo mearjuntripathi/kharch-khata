@@ -161,7 +161,7 @@
 }
 
 
-.borrowed-lists, .give-lists {
+.borrowed-lists, .gived-lists {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -181,7 +181,7 @@
     border-radius: 15px;
 }
 
-.give {
+.gived {
     width: 100%;
     display: flex;
     align-items: center;
@@ -192,7 +192,7 @@
     border-radius: 15px;
 }
 
-.borrowed-name, .give-name {
+.borrowed-name, .gived-name {
     font-size: medium;
     font-weight: bolder;
 }
@@ -205,7 +205,7 @@
     border-radius: 10px;
 }
 
-.give-price {
+.gived-price {
     font-weight: bolder;
     background-color: rgb(59, 197, 40);
     padding: 5px 10px;
