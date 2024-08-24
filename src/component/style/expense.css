@@ -1,0 +1,94 @@
+/* Container styling */
+.expense-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Navigation styling */
+.expenses-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.expenses-nav h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.option button{
+    font-size: larger;
+}
+
+i .uil{
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.options {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.expense-list{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+thead {
+    background-color: #bf0ce2;
+}
+
+thead th {
+    padding: 10px;
+    color: #fff;
+}
+
+thead th:first-child {
+    border-top-left-radius: 15px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 15px;
+}
+
+
+tbody td {
+    padding: 10px;
+    font-size: 14px;
+    color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+tfoot td {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .expenses-nav h1 {
+        font-size: 20px;
+    }
+
+    .expenses-nav .option-button {
+        font-size: 20px;
+    }
+}

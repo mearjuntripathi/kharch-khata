@@ -1,0 +1,109 @@
+/* Container styling */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Navigation styling */
+.users-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.users-nav h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.users-nav button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: background-color 0.3s ease;
+}
+
+.users-nav button:hover {
+    background-color: #45a049;
+}
+
+/* Users list styling */
+.users-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* User card styling */
+.user {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.user:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.user-name {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    /* margin-bottom: 10px; */
+}
+
+.borrow-money, .give-money {
+    font-size: 16px;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Borrow and Give specific colors */
+.borrow-money {
+    color: #ff0000;
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: rgb(250, 162, 162);
+    width: fit-content;
+}
+
+.give-money {
+    color:rgb(9, 255, 0)0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    background-color: rgb(193, 250, 162);
+    width: fit-content;
+}
+
+/* Responsive adjustments */
+@media (max-width: 630px) {
+    .users-nav h1 {
+        font-size: 20px;
+    }
+
+    .users-nav button {
+        padding: 8px 16px;
+    }
+
+    .user {
+        padding: 15px;
+        flex-direction: row;
+    }
+}

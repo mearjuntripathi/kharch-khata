@@ -1,0 +1,111 @@
+/* Container styling */
+.expenses-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Navigation styling */
+.expenses-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.expenses-nav h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.expenses-nav button {
+    padding: 10px 20px;
+    background-color: #FF5722;
+    color: #fff;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.expenses-nav button:hover {
+    background-color: #E64A19;
+}
+
+/* Expenses list styling */
+.expenses-list {
+    display: flex;
+    gap: 10px;
+}
+
+/* Expense card styling */
+.expense {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.expense:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.expense-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.cost {
+    font-size: 16px;
+    color: #FF5722;
+    padding: 5px 10px;
+    font-weight: bolder;
+    border-radius: 15px;
+    background-color: rgba(255, 87, 34, 0.1);
+    width: fit-content;
+}
+
+.date {
+    font-size: 14px;
+    color: #777;
+    font-weight: bolder;
+    font-size: small;
+    margin-top: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 630px) {
+    .expenses-list {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+    .expenses-nav h1 {
+        font-size: 20px;
+    }
+
+    .expenses-nav button {
+        padding: 8px 16px;
+    }
+
+    .expense {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .cost, .date {
+        margin-top: 0;
+    }
+}

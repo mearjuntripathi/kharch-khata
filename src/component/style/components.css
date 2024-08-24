@@ -1,0 +1,243 @@
+/* Popup Container and Content */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px;
+    height: 80%; /* Fixed height */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.popup-title {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.popup-label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #555;
+}
+
+.popup-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.popup-subtitle {
+    margin: 20px 0 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Scrollable content within the popup */
+.popup-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.product-input, .contributor-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.product-input input, .contributor-input input {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.popup-add-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.popup-add-button:hover {
+    background-color: #0056b3;
+}
+
+.popup-delete-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-delete-button:hover {
+    background-color: #c82333;
+}
+
+.popup-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.popup-add-expense-button, .popup-add-user-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-add-expense-button:hover, .popup-add-user-button:hover {
+    background-color: #218838;
+}
+
+.popup-close-button {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.popup-close-button:hover {
+    background-color: #5a6268;
+}
+
+.popup-close {
+    position: absolute; /* Change relative to absolute */
+    top: 10px; 
+    right: 10px; /* Ensure the button is aligned to the top-right corner */
+    background-color: red;
+    font-size: large;
+    font-weight: bolder;
+    color: white; /* Add contrast */
+    border: none; /* Remove default button borders */
+    padding: 5px 10px; /* Add some padding */
+    cursor: pointer; /* Change cursor to pointer */
+    border-radius: 5px; /* Add some border-radius for smoother edges */
+}
+
+
+.borrowed-lists, .give-lists {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    width: 100%;
+    padding-right: 10px;
+}
+
+.borrowed {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: 1px solid rgb(240, 83, 83);
+    padding: 10px 5px;
+    border-radius: 15px;
+}
+
+.give {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border: 1px solid rgb(83, 240, 96);
+    padding: 10px 5px;
+    border-radius: 15px;
+}
+
+.borrowed-name, .give-name {
+    font-size: medium;
+    font-weight: bolder;
+}
+
+.borrowed-price {
+    font-weight: bolder;
+    background-color: rgb(245, 122, 122);
+    padding: 5px 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.give-price {
+    font-weight: bolder;
+    background-color: rgb(59, 197, 40);
+    padding: 5px 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .popup-content {
+        padding: 15px;
+        height: 90%; /* Adjust height for smaller screens */
+    }
+
+    .popup-title {
+        font-size: 1.3em;
+    }
+
+    .popup-input, .popup-add-button, .popup-delete-button {
+        padding: 8px;
+    }
+
+    .popup-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .popup-add-expense-button, .popup-close-button {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+}
