@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './style/expense.css';
+import { EditExpensePopup } from './Components'; // Import the EditExpensePopup
 
 export default function Expense() {
     const { expenseId } = useParams();
     const [expense, setExpense] = useState(null);
+    const [showEditPopup, setShowEditPopup] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,8 +17,8 @@ export default function Expense() {
         if (foundExpense) {
             setExpense(foundExpense);
         } else {
-            // Redirect back if the expenseId does not exist
-            navigate('/expenses');
+            // If no matching expense is found, go back to the previous page
+            navigate(-1);  // Go back to the previous page in the history stack
         }
     }, [expenseId, navigate]);
 
@@ -31,8 +33,17 @@ export default function Expense() {
     };
 
     const handleEdit = () => {
-        // Navigate to the edit page or open an edit popup
-        alert('Edit functionality is not implemented yet.');
+        setShowEditPopup(true); // Open the edit popup
+    };
+
+    const handleUpdate = (updatedExpense) => {
+        const storedExpenses = JSON.parse(localStorage.getItem('expenses')) || [];
+        const updatedExpenses = storedExpenses.map(exp =>
+            exp.id === expenseId ? { ...exp, ...updatedExpense } : exp
+        );
+        localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
+        setExpense(updatedExpense);
+        setShowEditPopup(false);
     };
 
     const handlePrint = () => {
@@ -128,6 +139,13 @@ export default function Expense() {
                     </div>
                 )}
             </div>
+            {showEditPopup && (
+                <EditExpensePopup
+                    expense={expense}
+                    onClose={() => setShowEditPopup(false)}
+                    onUpdate={handleUpdate}
+                />
+            )}
         </div>
     );
 }

@@ -1,0 +1,135 @@
+/* Container styling */
+.user-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Navigation styling */
+.user-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-nav h1 {
+    font-size: 24px;
+    color: #333;
+}
+
+.user-nav button {
+    padding: 10px 20px;
+    background-color: #FF5722;
+    color: #fff;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-nav button:hover {
+    background-color: #E64A19;
+}
+
+/* user list styling */
+.borrow-list, .give-list {
+    display: flex;
+    gap: 10px;
+}
+
+.gap-div{
+    display: flex;
+    gap: 10px;
+}
+
+/* Expense card styling */
+.borrow, .give, .add {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.add{
+    font-size: larger;
+    font-weight: bolder;
+    justify-content: center;
+}
+
+.borrow:hover, .give:hover, .add:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.expense-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.complete{
+    background-color: rgb(234, 234, 234);
+}
+
+.cost {
+    font-size: 16px;
+    padding: 5px 10px;
+    font-weight: bolder;
+    border-radius: 15px;
+    width: fit-content;
+}
+
+.borrow .cost{
+    color: #E64A19;
+    background-color: rgba(255, 87, 34, 0.1);
+}
+
+.give .cost{
+    color: #42e619;
+    background-color: rgba(34, 255, 34, 0.1);
+}
+
+
+.date {
+    font-size: 14px;
+    color: #777;
+    font-weight: bolder;
+    font-size: small;
+    margin-top: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 630px) {
+    .borrow-list, .give-list {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+    .user-nav h1 {
+        font-size: 20px;
+    }
+
+    .user-nav button {
+        padding: 8px 16px;
+    }
+
+    .borrow, .givee, .add {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .cost, .date {
+        margin-top: 0;
+    }
+}

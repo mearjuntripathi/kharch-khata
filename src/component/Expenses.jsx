@@ -26,24 +26,6 @@ export default function Expenses() {
         const updatedExpenses = [...expenses, { id: expenseId, name: newExpense.expenseName, date, cost: totalCost }];
         setExpenses(updatedExpenses);
 
-        // Save the new list of expenses to local storage
-        const storedExpenses = JSON.parse(localStorage.getItem('expenses')) || [];
-        storedExpenses.push({
-            id: expenseId,
-            expense: newExpense.expenseName,
-            date,
-            products: newExpense.products.map((product, index) => ({
-                id: `p${index + 1}`,
-                name: product.name,
-                amount: parseFloat(product.price),
-            })),
-            contributors: newExpense.contributors.map((contributor, index) => ({
-                id: `c${index + 1}`,
-                name: contributor.name,
-                amount: parseFloat(contributor.price),
-            }))
-        });
-        localStorage.setItem('expenses', JSON.stringify(storedExpenses));
     };
 
     const handleExpenseClick = (expenseId) => {

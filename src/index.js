@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Home from './component/Home';
 import Users from './component/Users';
+import User from './component/User'
 import Expenses from './component/Expenses';
 import Expense from './component/Expense'; // Updated import
 import reportWebVitals from './reportWebVitals';
@@ -54,6 +55,7 @@ const App = () => {
         <Route path="/" element={<AppWrapper />} />
         <Route path="/users" element={<Users />} />
         <Route path="/expenses" element={<Expenses />} />
+        <Route path="/user" element={<User />} />
         <Route path="/expense/:expenseId" element={<Expense/>} /> {/* Corrected path */}
       </Routes>
     </Router>
