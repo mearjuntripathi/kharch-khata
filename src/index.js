@@ -28,8 +28,8 @@ const AppWrapper = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const usersData = localStorage.getItem('usersData');
-    const expensesData = localStorage.getItem('expensesData');
+    const usersData = localStorage.getItem('users');
+    const expensesData = localStorage.getItem('expenses');
 
     if (usersData && expensesData) {
       setIsInitialized(true);
@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/" element={<AppWrapper />} />
         <Route path="/users" element={<Users />} />
         <Route path="/expenses" element={<Expenses />} />
-        <Route path="/user" element={<User />} />
+        <Route path="/user/:userId" element={<User />} />
         <Route path="/expense/:expenseId" element={<Expense/>} /> {/* Corrected path */}
       </Routes>
     </Router>

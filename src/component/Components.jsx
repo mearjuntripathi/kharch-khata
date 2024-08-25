@@ -374,141 +374,256 @@ function GivePopup({ onClose, giveList }) {
     );
 }
 
-function AddBorrow({ onClose }) {
+function AddBorrow({ onClose, userId }) {
+    const [name, setName] = useState("");
+    const [amount, setAmount] = useState("");
+
+    const handleAddBorrow = () => {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const user = storedUsers.find((u) => u.id === userId);
+
+        if (user) {
+            const newBorrow = {
+                id: `b${new Date().getTime()}`, // generate unique id
+                name,
+                amount: parseFloat(amount),
+                date: new Date().toLocaleDateString(),
+                complete: false,
+            };
+            user.borrowed.push(newBorrow);
+            localStorage.setItem("users", JSON.stringify(storedUsers));
+            onClose(); // Close the popup
+            window.location.reload(); // Reload page to reflect changes
+        }
+    };
+
     return (
         <div className="popup-container">
             <div className="popup-content">
-                <button className="popup-close" onClick={onClose}>
-                    Close
-                </button>
-                <h2 className="popup-title">You Brrow from</h2>
-                <div className="contributor-input">
+                <button className="popup-close" onClick={onClose}>Close</button>
+                <h2 className="popup-title">Add Borrow</h2>
+                <div className="product-input">
+
                     <input
                         type="text"
-                        name="name"
-                        placeholder="Re Name"
+                        placeholder="Name"
                         className="popup-input"
-
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <input
                         type="number"
-                        name="amount"
                         placeholder="Amount"
+                        value={amount}
                         className="popup-input"
+                        onChange={(e) => setAmount(e.target.value)}
                     />
                 </div>
-                <button className="popup-add-button">Add Borrow</button>
+                <button className="popup-add-button" onClick={handleAddBorrow}>Add</button>
             </div>
         </div>
-    )
+    );
 }
 
-function AddGive({ onClose }) {
+// AddGive Component
+function AddGive({ onClose, userId }) {
+    const [name, setName] = useState("");
+    const [amount, setAmount] = useState("");
+
+    const handleAddGive = () => {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const user = storedUsers.find((u) => u.id === userId);
+
+        if (user) {
+            const newGive = {
+                id: `g${new Date().getTime()}`, // generate unique id
+                name,
+                amount: parseFloat(amount),
+                date: new Date().toLocaleDateString(),
+                complete: false,
+            };
+            user.give.push(newGive);
+            localStorage.setItem("users", JSON.stringify(storedUsers));
+            onClose(); // Close the popup
+            window.location.reload(); // Reload page to reflect changes
+        }
+    };
+
     return (
         <div className="popup-container">
             <div className="popup-content">
-                <button className="popup-close" onClick={onClose}>
-                    Close
-                </button>
-                <h2 className="popup-title">You Gave To</h2>
-                <div className="contributor-input">
+                <button className="popup-close" onClick={onClose}>Close</button>
+                <h2 className="popup-title">Add Give</h2>
+                <div className="product-input">
                     <input
                         type="text"
-                        name="name"
-                        placeholder="Contributor Name"
+                        placeholder="Name"
+                        value={name}
                         className="popup-input"
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <input
                         type="number"
-                        name="amount"
                         placeholder="Amount"
+                        value={amount}
                         className="popup-input"
+                        onChange={(e) => setAmount(e.target.value)}
                     />
                 </div>
-                <button className="popup-add-button">Add Give</button>
+                <button className="popup-add-button" onClick={handleAddGive}>Add</button>
             </div>
         </div>
-    )
+    );
 }
 
-function UpdateBorrow({ onClose }) {
+// UpdateBorrow Component
+function UpdateBorrow({ onClose, item, userId }) {
+    const [name, setName] = useState(item.name);
+    const [amount, setAmount] = useState(item.amount);
+    const [complete, setComplete] = useState(item.complete);
+
+    const handleUpdateBorrow = () => {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const user = storedUsers.find((u) => u.id === userId);
+
+        if (user) {
+            const borrowItem = user.borrowed.find((b) => b.id === item.id);
+            if (borrowItem) {
+                borrowItem.name = name;
+                borrowItem.amount = parseFloat(amount);
+                borrowItem.complete = complete;
+                localStorage.setItem("users", JSON.stringify(storedUsers));
+                onClose(); // Close the popup
+                window.location.reload(); // Reload page to reflect changes
+            }
+        }
+    };
+
+    const handleDeleteBorrow = () => {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const user = storedUsers.find((u) => u.id === userId);
+
+        if (user) {
+            user.borrowed = user.borrowed.filter((b) => b.id !== item.id);
+            localStorage.setItem("users", JSON.stringify(storedUsers));
+            onClose(); // Close the popup
+            window.location.reload(); // Reload page to reflect changes
+        }
+    };
+
     return (
         <div className="popup-container">
             <div className="popup-content">
-                <button className="popup-close" onClick={onClose}>
-                    Close
-                </button>
-                <h2 className="popup-title">You Borrow Update</h2>
-                <div className="contributor-input">
+                <button className="popup-close" onClick={onClose}>Close</button>
+                <h2 className="popup-title">Update Borrow</h2>
+                <div className="product-input">
                     <input
                         type="text"
-                        name="name"
-                        placeholder="Contributor Name"
+                        placeholder="Name"
+                        value={name}
                         className="popup-input"
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <input
                         type="number"
-                        name="amount"
                         placeholder="Amount"
+                        value={amount}
                         className="popup-input"
+                        onChange={(e) => setAmount(e.target.value)}
                     />
                 </div>
                 <div>
-                    <input type="checkbox" name="Completed" id="" /> Completed
+                    <input
+                        type="checkbox"
+                        checked={complete}
+                        onChange={(e) => setComplete(e.target.checked)}
+                    /> Completed
                 </div>
                 <hr />
                 <br />
                 <div className="popup-footer">
-                    <button className="popup-add-user-button">
-                        Update Borrow
-                    </button>
-                    <button className="popup-close-button">
-                        Delete
-                    </button>
+                    <button className="popup-add-expense-button" onClick={handleUpdateBorrow}>Update</button>
+                    <button className="popup-close-button" onClick={handleDeleteBorrow}>Delete</button>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-function UpdateGive({ onClose }) {
+// UpdateGive Component
+function UpdateGive({ onClose, item, userId }) {
+    const [name, setName] = useState(item.name);
+    const [amount, setAmount] = useState(item.amount);
+    const [complete, setComplete] = useState(item.complete);
+
+    const handleUpdateGive = () => {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const user = storedUsers.find((u) => u.id === userId);
+
+        if (user) {
+            const giveItem = user.give.find((g) => g.id === item.id);
+            if (giveItem) {
+                giveItem.name = name;
+                giveItem.amount = parseFloat(amount);
+                giveItem.complete = complete;
+                localStorage.setItem("users", JSON.stringify(storedUsers));
+                onClose(); // Close the popup
+                window.location.reload(); // Reload page to reflect changes
+            }
+        }
+    };
+
+    const handleDeleteGive = () => {
+        const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+        const user = storedUsers.find((u) => u.id === userId);
+
+        if (user) {
+            user.give = user.give.filter((g) => g.id !== item.id);
+            localStorage.setItem("users", JSON.stringify(storedUsers));
+            onClose(); // Close the popup
+            window.location.reload(); // Reload page to reflect changes
+        }
+    };
+
     return (
         <div className="popup-container">
             <div className="popup-content">
-                <button className="popup-close" onClick={onClose}>
-                    Close
-                </button>
-                <h2 className="popup-title">You Gave To</h2>
-                <div className="contributor-input">
+                <button className="popup-close" onClick={onClose}>Close</button>
+                <h2 className="popup-title">Update Give</h2>
+                <div className="product-input">
                     <input
                         type="text"
-                        name="name"
-                        placeholder="Contributor Name"
+                        placeholder="Name"
                         className="popup-input"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                     <input
                         type="number"
-                        name="amount"
                         placeholder="Amount"
                         className="popup-input"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
                     />
                 </div>
-                <div className="contributor-input">
-                    <input type="checkbox" name="Completed" id="" /> Completed
+                <div>
+                    <input
+                        type="checkbox"
+                        checked={complete}
+                        onChange={(e) => setComplete(e.target.checked)}
+                    /> Completed
                 </div>
                 <hr />
                 <br />
                 <div className="popup-footer">
-                    <button className="popup-add-user-button">
-                        Update Give
-                    </button>
-                    <button className="popup-close-button">
-                        Delete
-                    </button>
+                    <button onClick={handleUpdateGive}>Update</button>
+                    <button onClick={handleDeleteGive}>Delete</button>
                 </div>
             </div>
         </div>
-    )
+    );
 }
+
+
 
 export { AddExpensePopup, EditExpensePopup, AddUserPopup, BorrowPopup, GivePopup, AddBorrow, AddGive, UpdateBorrow, UpdateGive }

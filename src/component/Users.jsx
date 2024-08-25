@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Updated to useNavigate
 import './style/users.css';
-import {AddUserPopup} from './Components'
+import { AddUserPopup } from './Components';
 
 export default function Users() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [users, setUsers] = useState([]);
+    const navigate = useNavigate(); // Updated to useNavigate
 
-    // Load users from local storage on component mount
     useEffect(() => {
         const storedUsers = localStorage.getItem('users');
         if (storedUsers) {
@@ -28,6 +29,10 @@ export default function Users() {
         localStorage.setItem('users', JSON.stringify(updatedUsers));
     };
 
+    const handleUserClick = (userId) => {
+        navigate(`/user/${userId}`); // Updated to use navigate
+    };
+
     return (
         <div className="container">
             <nav className="users-nav">
@@ -36,7 +41,11 @@ export default function Users() {
             </nav>
             <div className="users-list">
                 {users.map((user, index) => (
-                    <div key={index} className="user">
+                    <div 
+                        key={index} 
+                        className="user" 
+                        onClick={() => handleUserClick(user.id)} // Navigate on click
+                    >
                         <span className="user-name">{user.user}</span>
                         <div className="borrow-money">₹{user.borrowed.reduce((sum, item) => sum + item.amount, 0).toFixed(2)}</div>
                         <div className="give-money">₹{user.give.reduce((sum, item) => sum + item.amount, 0).toFixed(2)}</div>
