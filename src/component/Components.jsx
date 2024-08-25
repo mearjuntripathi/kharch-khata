@@ -149,7 +149,7 @@ function AddExpensePopup({ onClose, onAddExpense }) {
 }
 
 
-export default function EditExpensePopup({ expense, onClose, onUpdate }) {
+function EditExpensePopup({ expense, onClose, onUpdate }) {
     const [expenseData, setExpenseData] = useState(expense);
 
     useEffect(() => {
@@ -374,4 +374,141 @@ function GivePopup({ onClose, giveList }) {
     );
 }
 
-export { AddExpensePopup, EditExpensePopup, AddUserPopup, BorrowPopup, GivePopup }
+function AddBorrow({ onClose }) {
+    return (
+        <div className="popup-container">
+            <div className="popup-content">
+                <button className="popup-close" onClick={onClose}>
+                    Close
+                </button>
+                <h2 className="popup-title">You Brrow from</h2>
+                <div className="contributor-input">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Re Name"
+                        className="popup-input"
+
+                    />
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount"
+                        className="popup-input"
+                    />
+                </div>
+                <button className="popup-add-button">Add Borrow</button>
+            </div>
+        </div>
+    )
+}
+
+function AddGive({ onClose }) {
+    return (
+        <div className="popup-container">
+            <div className="popup-content">
+                <button className="popup-close" onClick={onClose}>
+                    Close
+                </button>
+                <h2 className="popup-title">You Gave To</h2>
+                <div className="contributor-input">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Contributor Name"
+                        className="popup-input"
+                    />
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount"
+                        className="popup-input"
+                    />
+                </div>
+                <button className="popup-add-button">Add Give</button>
+            </div>
+        </div>
+    )
+}
+
+function UpdateBorrow({ onClose }) {
+    return (
+        <div className="popup-container">
+            <div className="popup-content">
+                <button className="popup-close" onClick={onClose}>
+                    Close
+                </button>
+                <h2 className="popup-title">You Borrow Update</h2>
+                <div className="contributor-input">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Contributor Name"
+                        className="popup-input"
+                    />
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount"
+                        className="popup-input"
+                    />
+                </div>
+                <div>
+                    <input type="checkbox" name="Completed" id="" /> Completed
+                </div>
+                <hr />
+                <br />
+                <div className="popup-footer">
+                    <button className="popup-add-user-button">
+                        Update Borrow
+                    </button>
+                    <button className="popup-close-button">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function UpdateGive({ onClose }) {
+    return (
+        <div className="popup-container">
+            <div className="popup-content">
+                <button className="popup-close" onClick={onClose}>
+                    Close
+                </button>
+                <h2 className="popup-title">You Gave To</h2>
+                <div className="contributor-input">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Contributor Name"
+                        className="popup-input"
+                    />
+                    <input
+                        type="number"
+                        name="amount"
+                        placeholder="Amount"
+                        className="popup-input"
+                    />
+                </div>
+                <div className="contributor-input">
+                    <input type="checkbox" name="Completed" id="" /> Completed
+                </div>
+                <hr />
+                <br />
+                <div className="popup-footer">
+                    <button className="popup-add-user-button">
+                        Update Give
+                    </button>
+                    <button className="popup-close-button">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export { AddExpensePopup, EditExpensePopup, AddUserPopup, BorrowPopup, GivePopup, AddBorrow, AddGive, UpdateBorrow, UpdateGive }
