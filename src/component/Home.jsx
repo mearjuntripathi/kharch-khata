@@ -48,7 +48,7 @@ export default function Home() {
             <div className="home-box home-money-icon" onClick={() => navigate('/expenses')}>
                 <p className="home-label">Expenses</p>
                 <i className="uil uil-money-bill"></i>
-                <span className="home-symbol">₹</span>{totalExpenses.toFixed(2)}
+                <span>₹ {totalExpenses.toFixed(2)}</span>
             </div>
 
             {/* Borrow Popup */}
