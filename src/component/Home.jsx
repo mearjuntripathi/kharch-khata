@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style/home.css';
-import {BorrowPopup,GivePopup} from './Components';
+import { BorrowPopup, GivePopup } from './Components';
 export default function Home() {
     const [isBorrowPopupOpen, setIsBorrowPopupOpen] = useState(false);
     const [isGivePopupOpen, setIsGivePopupOpen] = useState(false);
@@ -36,6 +36,14 @@ export default function Home() {
             <div className="home-box home-money-icon" onClick={() => navigate('/expenses')}>
                 <p className="home-label">Expenses</p>
                 <i className="uil uil-money-bill"></i>
+                <span >₹ {
+                    JSON.parse(localStorage.getItem('expenses') || '[]')
+                        .reduce((total, expense) =>
+                            total + (expense.products || [])
+                                .reduce((sum, product) => sum + parseFloat(product.amount || 0), 0),
+                            0)
+                }
+                </span>
             </div>
 
             {/* Borrow Popup */}
