@@ -332,40 +332,33 @@ function AddUserPopup({ onClose, onAddUser }) {
     );
 }
 
-function BorrowPopup({ onClose, borrowedList }) {
+function BorrowPopup({ onClose }) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+    // Calculate total incomplete borrowed amount per user
+    const borrowedAmounts = users.map(user => {
+        const incompleteBorrowedAmount = user.borrowed
+            .filter(item => !item.complete)
+            .reduce((total, item) => total + parseFloat(item.amount || 0), 0);
+
+        return {
+            name: user.user,
+            totalAmount: incompleteBorrowedAmount,
+        };
+    }).filter(user => user.totalAmount > 0); // Filter out users with 0 amount
+
     return (
         <div className="popup-container">
             <button className="popup-close" onClick={onClose}>
                 Close
             </button>
             <div className="popup-content">
-                <h2 className="popup-title">You Borrowed From</h2>
+                <h2 className="popup-title">Incomplete Borrowed Amounts</h2>
                 <div className="borrowed-lists">
-                    {borrowedList.map((item, index) => (
+                    {borrowedAmounts.map((user, index) => (
                         <div key={index} className="borrowed">
-                            <span className="borrowed-name">{item.name}</span>
-                            <span className="borrowed-price">₹{item.price.toFixed(2)}</span>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    )
-}
-
-function GivePopup({ onClose, giveList }) {
-    return (
-        <div className="popup-container">
-            <div className="popup-content">
-                <button className="popup-close" onClick={onClose}>
-                    Close
-                </button>
-                <h2 className="popup-title">You Gave To</h2>
-                <div className="gived-lists">
-                    {giveList.map((item, index) => (
-                        <div key={index} className="gived">
-                            <span className="gived-name">{item.name}</span>
-                            <span className="gived-price">₹{item.price.toFixed(2)}</span>
+                            <span className="borrowed-name">{user.name}</span>
+                            <span className="borrowed-price">₹{user.totalAmount.toFixed(2)}</span>
                         </div>
                     ))}
                 </div>
@@ -373,6 +366,43 @@ function GivePopup({ onClose, giveList }) {
         </div>
     );
 }
+
+function GivePopup({ onClose }) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+    // Calculate total incomplete give amount per user
+    const giveAmounts = users.map(user => {
+        const incompleteGiveAmount = user.give
+            .filter(item => !item.complete)
+            .reduce((total, item) => total + parseFloat(item.amount || 0), 0);
+
+        return {
+            name: user.user,
+            totalAmount: incompleteGiveAmount,
+        };
+    }).filter(user => user.totalAmount > 0); // Filter out users with 0 amount
+
+    return (
+        <div className="popup-container">
+            <button className="popup-close" onClick={onClose}>
+                Close
+            </button>
+            <div className="popup-content">
+                <h2 className="popup-title">Incomplete Give Amounts</h2>
+                <div className="gived-lists">
+                    {giveAmounts.map((user, index) => (
+                        <div key={index} className="gived">
+                            <span className="gived-name">{user.name}</span>
+                            <span className="gived-price">₹{user.totalAmount.toFixed(2)}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
 
 function AddBorrow({ onClose, userId }) {
     const [name, setName] = useState("");

@@ -11,14 +11,14 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 
 // Function to initialize local storage
 const initializeLocalStorage = () => {
-  const usersData = localStorage.getItem('usersData');
-  const expensesData = localStorage.getItem('expensesData');
+  const usersData = localStorage.getItem('users');
+  const expensesData = localStorage.getItem('expenses');
 
   if (!usersData) {
-    localStorage.setItem('usersData', JSON.stringify([]));
+    localStorage.setItem('users', JSON.stringify([]));
   }
   if (!expensesData) {
-    localStorage.setItem('expensesData', JSON.stringify([]));
+    localStorage.setItem('expenses', JSON.stringify([]));
   }
 };
 
