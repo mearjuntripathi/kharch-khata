@@ -124,7 +124,7 @@
         padding: 8px 16px;
     }
 
-    .borrow, .givee, .add {
+    .borrow, .give, .add {
         padding: 15px;
         width: 100%;
     }

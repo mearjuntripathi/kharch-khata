@@ -646,8 +646,8 @@ function UpdateGive({ onClose, item, userId }) {
                 <hr />
                 <br />
                 <div className="popup-footer">
-                    <button onClick={handleUpdateGive}>Update</button>
-                    <button onClick={handleDeleteGive}>Delete</button>
+                    <button className="popup-add-expense-button" onClick={handleUpdateGive}>Update</button>
+                    <button className="popup-close-button" onClick={handleDeleteGive}>Delete</button>
                 </div>
             </div>
         </div>
