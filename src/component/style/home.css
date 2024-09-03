@@ -150,8 +150,9 @@
 
 .close-popup {
     position: absolute;
-    top: 10px;
+    top: 0px;
     right: 10px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: xx-large;
+    font-weight: bolder;
 }
