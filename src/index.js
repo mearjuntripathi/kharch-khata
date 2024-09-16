@@ -7,6 +7,7 @@ import User from './component/User'
 import Expenses from './component/Expenses';
 import Expense from './component/Expense'; // Updated import
 import reportWebVitals from './reportWebVitals';
+import NotFound from './component/NotFound';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 
 // Function to initialize local storage
@@ -56,7 +57,8 @@ const App = () => {
         <Route path="/users" element={<Users />} />
         <Route path="/expenses" element={<Expenses />} />
         <Route path="/user/:userId" element={<User />} />
-        <Route path="/expense/:expenseId" element={<Expense/>} /> {/* Corrected path */}
+        <Route path="/expense/:expenseId" element={<Expense/>} /> 
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

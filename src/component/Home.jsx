@@ -69,6 +69,7 @@ export default function Home() {
 
     return (
         <div className="home-container">
+            <div className="account"><i className="uil uil-user"></i></div>
             <div className="home-box home-users-icon" onClick={() => navigate('/users')}>
                 <p className="home-label">Users</p>
                 <i className="uil uil-users-alt"></i>
