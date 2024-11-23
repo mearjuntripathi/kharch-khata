@@ -80,6 +80,7 @@
 
 .complete{
     background-color: rgb(234, 234, 234);
+    text-decoration: line-through;
 }
 
 .cost {
