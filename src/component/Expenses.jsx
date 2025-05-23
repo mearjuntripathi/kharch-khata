@@ -10,7 +10,6 @@ export default function Expenses() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Load expenses from local storage when the component mounts
         const storedExpenses = JSON.parse(localStorage.getItem('expenses')) || [];
         const formattedExpenses = storedExpenses.map(expense => {
             const totalCost = expense.products.reduce((total, product) => total + parseFloat(product.amount || 0), 0);
@@ -22,11 +21,9 @@ export default function Expenses() {
     const handleAddExpense = (newExpense) => {
         const totalCost = newExpense.products.reduce((total, product) => total + parseFloat(product.price || 0), 0);
         const date = new Date().toLocaleDateString();
-        const expenseId = `e${Date.now()}`;  // Unique ID for the expense
-
+        const expenseId = `e${Date.now()}`;
         const updatedExpenses = [...expenses, { id: expenseId, name: newExpense.expenseName, date, cost: totalCost }];
         setExpenses(updatedExpenses);
-
     };
 
     const handleExpenseClick = (expenseId) => {
@@ -35,30 +32,35 @@ export default function Expenses() {
 
     return (
         <div className="expenses-container">
-            <nav className="expenses-nav">
-                <h1>Your Expenses</h1>
-                <button onClick={() => setShowPopup(true)}>+ Add Expenses</button>
+            <nav className="expenses-header">
+                <h1>💸 Expense Tracker</h1>
             </nav>
+
             <div className="expenses-list">
-                {expenses.map((expense, index) => (
+                {expenses.map((expense) => (
                     <div
-                        key={index}
-                        className="expense"
+                        key={expense.id}
+                        className="expense-card"
                         onClick={() => handleExpenseClick(expense.id)}
-                        style={{ cursor: 'pointer' }}
                     >
-                        <span className="user-name">{expense.name}</span>
-                        <div className="date">{expense.date}</div>
-                        <div className="cost">₹{expense.cost.toFixed(2)}</div>
+                        <div className="expense-title">{expense.name}</div>
+                        <div className="expense-meta">
+                            <span className="expense-date">{expense.date}</span>
+                            <span className="expense-cost">₹{expense.cost.toFixed(2)}</span>
+                        </div>
                     </div>
                 ))}
             </div>
+
             {showPopup && (
                 <AddExpensePopup
                     onClose={() => setShowPopup(false)}
                     onAddExpense={handleAddExpense}
                 />
             )}
+
+            <button className="fab-add-expense" onClick={() => setShowPopup(true)}>＋</button>
+
 
             <BottomNav />
         </div>

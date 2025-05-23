@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Updated to useNavigate
+import { useNavigate } from 'react-router-dom';
 import './style/users.css';
 import { AddUserPopup } from './Components';
 import BottomNav from './BottomNav';
@@ -9,15 +9,22 @@ export default function Users() {
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
 
+    // Load users from localStorage
     useEffect(() => {
         const storedUsers = localStorage.getItem('users');
         if (storedUsers) {
-            setUsers(JSON.parse(storedUsers));
+            try {
+                setUsers(JSON.parse(storedUsers));
+            } catch (err) {
+                console.error('Failed to parse users from localStorage:', err);
+                setUsers([]);
+            }
         } else {
             localStorage.setItem('users', JSON.stringify([]));
         }
     }, []);
 
+    // Add new user
     const handleAddUser = (user) => {
         const newUser = {
             id: `u${users.length + 1}`,
@@ -34,46 +41,69 @@ export default function Users() {
         navigate(`/user/${userId}`);
     };
 
+    // Calculate amounts
     const calculateIncompleteAmounts = (user) => {
-        const incompleteBorrowed = user.borrowed
+        const incompleteBorrowed = (user.borrowed || [])
             .filter(item => !item.complete)
-            .reduce((sum, item) => sum + item.amount, 0);
+            .reduce((sum, item) => sum + (item.amount || 0), 0);
 
-        const incompleteGive = user.give
+        const incompleteGive = (user.give || [])
             .filter(item => !item.complete)
-            .reduce((sum, item) => sum + item.amount, 0);
+            .reduce((sum, item) => sum + (item.amount || 0), 0);
 
-        return {
-            incompleteBorrowed,
-            incompleteGive
-        };
+        return { incompleteBorrowed, incompleteGive };
     };
 
     return (
-        <div className="container">
-            <nav className="users-nav">
-                <h1>Your Friends</h1>
-                <button onClick={() => setIsPopupOpen(true)}>+ Add Friend</button>
+        <div className="users-container">
+            <nav className="users-header">
+                <h1>👥 Friends List</h1>
             </nav>
+
             <div className="users-list">
-                {users.map((user, index) => {
+                {users.map((user) => {
                     const { incompleteBorrowed, incompleteGive } = calculateIncompleteAmounts(user);
+
+                    // Handle initials safely
+                    const initials = (user.user || '??')
+                        .split(' ')
+                        .map(n => n?.[0]?.toUpperCase() || '')
+                        .join('')
+                        .slice(0, 2) || '??';
+
                     return (
                         <div
-                            key={index}
-                            className="user"
-                            onClick={() => handleUserClick(user.id)} // Navigate on click
+                            key={user.id}
+                            className="user-card"
+                            onClick={() => handleUserClick(user.id)}
                         >
-                            <span className="user-name">{user.user}</span>
-                            <div className="borrow-money">₹{incompleteBorrowed.toFixed(2)}</div>
-                            <div className="give-money">₹{incompleteGive.toFixed(2)}</div>
+                            <div className="user-avatar">{initials}</div>
+                            <div className="user-info">
+                                <div className="user-name">{user.user || 'Unnamed'}</div>
+                                <div className="user-balance">
+                                    <div className="balance-item borrowed">
+                                        ₹{incompleteGive.toFixed(2)}
+                                    </div>
+                                    <div className="balance-item given">
+                                        ₹{incompleteBorrowed.toFixed(2)}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     );
                 })}
             </div>
+
+            {/* Popup */}
             {isPopupOpen && (
-                <AddUserPopup onClose={() => setIsPopupOpen(false)} onAddUser={handleAddUser} />
+                <AddUserPopup
+                    onClose={() => setIsPopupOpen(false)}
+                    onAddUser={handleAddUser}
+                />
             )}
+
+            {/* Floating Add Button */}
+            <button className="fab-add-user" onClick={() => setIsPopupOpen(true)}>＋</button>
 
             <BottomNav />
         </div>

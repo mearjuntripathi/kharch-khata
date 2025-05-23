@@ -1,136 +1,186 @@
-/* Container styling */
 .user-container {
-    max-width: 1200px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
+    padding: 20px 15px 100px; /* bottom padding for fab */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Navigation styling */
 .user-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 25px;
 }
 
 .user-nav h1 {
-    font-size: 24px;
-    color: #333;
+    font-weight: 700;
+    font-size: 2rem;
+    margin-bottom: 12px;
 }
 
-.user-nav button {
-    padding: 10px 20px;
-    background-color: #FF5722;
-    color: #fff;
-    font-weight: bolder;
+/* Tab slider container */
+.tab-slider {
+    position: relative;
+    display: flex;
+    width: 220px;
+    margin: 0 auto;
+    background: #eee;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* Tab buttons */
+.tab-btn {
+    flex: 1;
+    padding: 10px 0;
+    background: transparent;
     border: none;
-    border-radius: 5px;
+    outline: none;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.tab-btn.active {
+    color: white;
+}
+
+/* Slider background */
+.slider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    border-radius: 30px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+/* Slider colors and position */
+.slider.borrow {
+    background-color: #28a745; /* green */
+    transform: translateX(0%);
+}
+
+.slider.give {
+    background-color: #dc3545; /* red */
+    transform: translateX(100%);
+}
+
+/* List container */
+.list-container {
+    margin-top: 25px;
+}
+
+/* Borrow and Give item */
+.borrow, .give {
+    background: white;
+    margin-bottom: 12px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.user-nav button:hover {
-    background-color: #E64A19;
+.borrow:hover {
+    background-color: #dff0d8; /* light green */
 }
 
-/* user list styling */
-.borrow-list, .give-list {
-    display: flex;
-    gap: 10px;
+.give:hover {
+    background-color: #f8d7da; /* light red */
 }
 
-.gap-div{
-    display: flex;
-    gap: 10px;
-}
-
-/* Expense card styling */
-.borrow, .give, .add {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    width: 400px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
-}
-
-.add{
-    font-size: larger;
-    font-weight: bolder;
-    justify-content: center;
-}
-
-.borrow:hover, .give:hover, .add:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.expense-name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.complete{
-    background-color: rgb(234, 234, 234);
+.borrow.complete {
     text-decoration: line-through;
+    color: #6c757d;
+}
+
+.give.complete {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+/* Money name */
+.money-name {
+    font-weight: 600;
+    flex: 1;
+    align-self: center;
+}
+
+/* Date and cost styling */
+.date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-right: 15px;
+    min-width: 100px;
+    text-align: right;
 }
 
 .cost {
-    font-size: 16px;
-    padding: 5px 10px;
-    font-weight: bolder;
-    border-radius: 15px;
-    width: fit-content;
+    font-weight: 700;
+    font-size: 1rem;
+    min-width: 70px;
+    text-align: right;
 }
 
-.borrow .cost{
-    color: #E64A19;
-    background-color: rgba(255, 87, 34, 0.1);
+/* Empty message */
+.empty-msg {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    margin-top: 40px;
 }
 
-.give .cost{
-    color: #42e619;
-    background-color: rgba(34, 255, 34, 0.1);
+/* Floating action buttons container */
+.fab-container {
+    position: fixed;
+    bottom: 80px; /* Adjust for bottom nav */
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    z-index: 1000;
 }
 
-
-.date {
-    font-size: 14px;
-    color: #777;
-    font-weight: bolder;
-    font-size: small;
-    margin-top: 5px;
+/* Common FAB button style */
+.fab-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 36px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Responsive adjustments */
-@media (max-width: 630px) {
-    .borrow-list, .give-list {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-    }
-    .user-nav h1 {
-        font-size: 20px;
-    }
+/* Borrow FAB */
+.borrow-btn {
+    background-color: #28a745;
+}
 
-    .user-nav button {
-        padding: 8px 16px;
-    }
+.borrow-btn:hover {
+    background-color: #218838;
+    box-shadow: 0 8px 18px rgba(40, 167, 69, 0.6);
+}
 
-    .borrow, .give, .add {
-        padding: 15px;
-        width: 100%;
-    }
+/* Give FAB */
+.give-btn {
+    background-color: #dc3545;
+}
 
-    .cost, .date {
-        margin-top: 0;
-    }
+.give-btn:hover {
+    background-color: #c82333;
+    box-shadow: 0 8px 18px rgba(220, 53, 69, 0.6);
 }

@@ -64,7 +64,7 @@ export default function Home() {
 
             <div className="card" onClick={() => navigate('/users')}>
                 <i className="uil uil-users-alt"></i>
-                <p>Users</p>
+                <p>Friends</p>
             </div>
 
             <div className="card" onClick={() => setIsBorrowPopupOpen(true)}>

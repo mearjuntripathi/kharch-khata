@@ -1,111 +1,102 @@
-/* Container styling */
 .expenses-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9fafb;
+    min-height: 100vh;
 }
 
-/* Navigation styling */
-.expenses-nav {
+.expenses-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
 }
 
-.expenses-nav h1 {
-    font-size: 24px;
+.expenses-header h1 {
+    font-size: 1.8rem;
     color: #333;
 }
 
-.expenses-nav button {
-    padding: 10px 20px;
-    background-color: #FF5722;
-    color: #fff;
-    font-weight: bolder;
+.add-btn {
+    padding: 0.5rem 1.2rem;
+    background-color: #c346e5;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-.expenses-nav button:hover {
-    background-color: #E64A19;
+.add-btn:hover {
+    background-color: #ca38bb;
 }
 
-/* Expenses list styling */
 .expenses-list {
-    display: flex;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
 }
 
-/* Expense card styling */
-.expense {
-    background-color: #fff;
+.expense-card {
+    background-color: white;
     border-radius: 10px;
-    padding: 20px;
-    width: 400px;
+    padding: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.expense-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.expense-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.expense-meta {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: #6b7280;
 }
 
-.expense:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.expense-name {
-    font-size: 18px;
+.expense-cost {
     font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
+    color: #10b981;
 }
 
-.cost {
-    font-size: 16px;
-    color: #FF5722;
-    padding: 5px 10px;
-    font-weight: bolder;
-    border-radius: 15px;
-    background-color: rgba(255, 87, 34, 0.1);
-    width: fit-content;
+.expense-date {
+    color: #9ca3af;
 }
 
-.date {
-    font-size: 14px;
-    color: #777;
-    font-weight: bolder;
-    font-size: small;
-    margin-top: 5px;
+.fab-add-expense {
+    position: fixed;
+    bottom: 80px; /* Adjust according to your BottomNav height */
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 2rem;
+    border: none;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease;
+    z-index: 1000;
 }
 
-/* Responsive adjustments */
-@media (max-width: 630px) {
-    .expenses-list {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-    }
-    .expenses-nav h1 {
-        font-size: 20px;
-    }
-
-    .expenses-nav button {
-        padding: 8px 16px;
-    }
-
-    .expense {
-        padding: 15px;
-        width: 100%;
-    }
-
-    .cost, .date {
-        margin-top: 0;
-    }
+.fab-add-expense:hover {
+    background-color: #4338ca;
+    transform: scale(1.05);
 }

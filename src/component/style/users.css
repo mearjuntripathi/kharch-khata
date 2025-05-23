@@ -1,109 +1,114 @@
-/* Container styling */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
+.users-container {
+    padding: 1rem;
+    background-color: #f9fafb;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Navigation styling */
-.users-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.users-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.users-nav h1 {
-    font-size: 24px;
-    color: #333;
+.users-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1f2937;
 }
 
-.users-nav button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bolder;
-    transition: background-color 0.3s ease;
-}
-
-.users-nav button:hover {
-    background-color: #45a049;
-}
-
-/* Users list styling */
+/* User List Layout */
 .users-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
-
-/* User card styling */
-.user {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
+    gap: 1rem;
 }
 
-.user:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+/* User Card */
+.user-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.user-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Avatar */
+.user-avatar {
+    background-color: #4f46e5;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+/* Info & Balances */
+.user-info {
+    flex: 1;
 }
 
 .user-name {
-    display: block;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    /* margin-bottom: 10px; */
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.25rem;
 }
 
-.borrow-money, .give-money {
-    font-size: 16px;
-    color: #777;
-    margin-top: 5px;
+.user-balance {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
 }
 
-/* Borrow and Give specific colors */
-.borrow-money {
-    color: #ff0000;
-    padding: 5px 10px;
-    border-radius: 15px;
-    background-color: rgb(250, 162, 162);
-    width: fit-content;
+.balance-item {
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-weight: 500;
 }
 
-.give-money {
-    color:rgb(9, 255, 0)0;
-    padding: 5px 10px;
-    border-radius: 15px;
-    background-color: rgb(193, 250, 162);
-    width: fit-content;
+.borrowed {
+    color: #ef4444;
+    background-color: #fee2e2;
 }
 
-/* Responsive adjustments */
-@media (max-width: 630px) {
-    .users-nav h1 {
-        font-size: 20px;
-    }
+.given {
+    color: #10b981;
+    background-color: #d1fae5;
+}
 
-    .users-nav button {
-        padding: 8px 16px;
-    }
+/* Floating Add Button */
+.fab-add-user {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 2rem;
+    border: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    z-index: 999;
+}
 
-    .user {
-        padding: 15px;
-        flex-direction: row;
-    }
+.fab-add-user:hover {
+    background-color: #4338ca;
+    transform: scale(1.05);
 }

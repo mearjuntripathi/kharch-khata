@@ -5,24 +5,23 @@ import { AddBorrow, AddGive, UpdateBorrow, UpdateGive } from "./Components";
 import BottomNav from "./BottomNav";
 
 export default function User() {
-    const { userId } = useParams(); // Get the userId from the URL
+    const { userId } = useParams();
     const [user, setUser] = useState(null);
-    const [showBorrowList, setShowBorrowList] = useState(true);
+    const [activeTab, setActiveTab] = useState("borrow");
     const [showAddBorrowPopup, setShowAddBorrowPopup] = useState(false);
     const [showAddGivePopup, setShowAddGivePopup] = useState(false);
     const [showUpdateBorrowPopup, setShowUpdateBorrowPopup] = useState(false);
     const [showUpdateGivePopup, setShowUpdateGivePopup] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    // Load user data from localStorage
     useEffect(() => {
         const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
         const foundUser = storedUsers.find((u) => u.id === userId);
         setUser(foundUser);
     }, [userId]);
 
-    const handleToggle = (listType) => {
-        setShowBorrowList(listType === "borrow");
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
     };
 
     const handleBorrowClick = (item) => {
@@ -41,78 +40,104 @@ export default function User() {
         <div className="user-container">
             <nav className="user-nav">
                 <h1>{user.user}</h1>
-                <div className="gap-div">
-                    <button onClick={() => handleToggle("borrow")}>Borrow</button>
-                    <button onClick={() => handleToggle("give")}>Give</button>
+                <div className="tab-slider">
+                    <button
+                        className={`tab-btn ${activeTab === "borrow" ? "active" : ""}`}
+                        onClick={() => handleTabChange("borrow")}
+                    >
+                        Borrow
+                    </button>
+                    <button
+                        className={`tab-btn ${activeTab === "give" ? "active" : ""}`}
+                        onClick={() => handleTabChange("give")}
+                    >
+                        Give
+                    </button>
+                    <div className={`slider ${activeTab}`} />
                 </div>
             </nav>
 
-            {showBorrowList ? (
-                <div className="borrow-list">
-                    <div className="add" onClick={() => setShowAddBorrowPopup(true)}>
-                        Add Borrow
-                    </div>
-                    {user.borrowed.map((item) => (
-                        <div
-                            key={item.id}
-                            className={`borrow ${item.complete ? 'complete' : ''}`}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleBorrowClick(item)}
-                        >
-                            <span className="money-name">{item.name}</span>
-                            <div className="date">{item.date}</div>
-                            <div className="cost">₹{item.amount}</div>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <div className="give-list">
-                    <div className="add" onClick={() => setShowAddGivePopup(true)}>
-                        Add Give
-                    </div>
-                    {user.give.map((item) => (
-                        <div
-                            key={item.id}
-                            className={`give ${item.complete ? 'complete' : ''}`}
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => handleGiveClick(item)}
-                        >
-                            <span className="money-name">{item.name}</span>
-                            <div className="date">{item.date}</div>
-                            <div className="cost">₹{item.amount}</div>
-                        </div>
-                    ))}
-                </div>
-            )}
+            <div className="list-container">
+                {activeTab === "borrow" && (
+                    <>
+                        {user.borrowed.length === 0 && (
+                            <p className="empty-msg">No borrow entries yet.</p>
+                        )}
+                        {user.borrowed.map((item) => (
+                            <div
+                                key={item.id}
+                                className={`borrow ${item.complete ? "complete" : ""}`}
+                                onClick={() => handleBorrowClick(item)}
+                            >
+                                <span className="money-name">{item.name}</span>
+                                <div className="date">{item.date}</div>
+                                <div className="cost">₹{item.amount}</div>
+                            </div>
+                        ))}
+                    </>
+                )}
 
-            {/* Add Borrow and Give popups */}
+                {activeTab === "give" && (
+                    <>
+                        {user.give.length === 0 && (
+                            <p className="empty-msg">No give entries yet.</p>
+                        )}
+                        {user.give.map((item) => (
+                            <div
+                                key={item.id}
+                                className={`give ${item.complete ? "complete" : ""}`}
+                                onClick={() => handleGiveClick(item)}
+                            >
+                                <span className="money-name">{item.name}</span>
+                                <div className="date">{item.date}</div>
+                                <div className="cost">₹{item.amount}</div>
+                            </div>
+                        ))}
+                    </>
+                )}
+            </div>
+
+            {/* Floating action buttons */}
+            <div className="fab-container">
+                {activeTab === "borrow" && (
+                    <button
+                        className="fab-btn borrow-btn"
+                        title="Add Borrow"
+                        onClick={() => setShowAddBorrowPopup(true)}
+                    >
+                        +
+                    </button>
+                )}
+                {activeTab === "give" && (
+                    <button
+                        className="fab-btn give-btn"
+                        title="Add Give"
+                        onClick={() => setShowAddGivePopup(true)}
+                    >
+                        +
+                    </button>
+                )}
+            </div>
+
+            {/* Popups */}
             {showAddBorrowPopup && (
-                <AddBorrow
-                    onClose={() => setShowAddBorrowPopup(false)}
-                    userId={userId}
-                />
+                <AddBorrow onClose={() => setShowAddBorrowPopup(false)} userId={userId} />
             )}
             {showAddGivePopup && (
-                <AddGive
-                    onClose={() => setShowAddGivePopup(false)}
-                    userId={userId}
-                />
+                <AddGive onClose={() => setShowAddGivePopup(false)} userId={userId} />
             )}
-
-
-            {/* Update Borrow and Give popups */}
             {showUpdateBorrowPopup && (
                 <UpdateBorrow
                     onClose={() => setShowUpdateBorrowPopup(false)}
-                    item={selectedItem} // Pass the selected item data
-                    userId={userId} // Pass the user ID
+                    item={selectedItem}
+                    userId={userId}
                 />
             )}
             {showUpdateGivePopup && (
                 <UpdateGive
                     onClose={() => setShowUpdateGivePopup(false)}
-                    item={selectedItem} // Pass the selected item data
-                    userId={userId} // Pass the user ID
+                    item={selectedItem}
+                    userId={userId}
                 />
             )}
 

@@ -1,94 +1,150 @@
-/* Container styling */
-.expense-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Arial', sans-serif;
-}
-
-/* Navigation styling */
-.expenses-nav {
+/* Top Buttons */
+.top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
-.expenses-nav h1 {
-    font-size: 24px;
-    color: #333;
-}
-
-.option button{
-    font-size: larger;
-}
-
-i .uil{
-    font-size: larger;
-    font-weight: bolder;
-}
-
-.options {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-
-.expense-list{
-    display: flex;
-    flex-direction: column;
-}
-
-/* Table styling */
-table {
-    width: 100%;
-    border: 1px solid white;
-    border-radius: 15px;
-    margin-bottom: 20px;
-}
-
-thead {
-    background-color: #bf0ce2;
-}
-
-thead th {
-    padding: 10px;
-    color: #fff;
-}
-
-thead th:first-child {
-    border-top-left-radius: 15px;
-}
-
-thead th:last-child {
-    border-top-right-radius: 15px;
-}
-
-
-tbody td {
-    padding: 10px;
-    font-size: 14px;
-    color: #ffffff;
-    border-bottom: 1px solid #ddd;
-}
-
-tfoot td {
-    padding: 10px;
-    font-size: 16px;
+/* Main Title */
+.expense-title {
+    text-align: center;
+    font-size: 1.8rem;
     font-weight: bold;
-    color: #ffffff;
+    margin-bottom: 1rem;
+    color: #111827;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .expenses-nav h1 {
-        font-size: 20px;
+/* Table & Card */
+.product-bill {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.product-table th,
+.product-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.product-table tfoot td {
+    font-weight: bold;
+    background-color: #f3f4f6;
+}
+
+/* Summary at Bottom */
+.print-summary {
+    text-align: right;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+
+/* Edit at Bottom */
+.edit-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* Button Styles */
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: none;
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    color: #374151;
+}
+
+.action-btn i {
+    font-size: 1.1rem;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+.action-btn.edit {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.action-btn.delete {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 0.5rem;
+}
+
+.action-btn.print {
+    background-color: #e0f2fe;
+    color: #1e40af;
+    padding: 0.5rem;
+}
+
+/* Hide on Print */
+@media print {
+    .no-print {
+        display: none !important;
     }
 
-    .expenses-nav .option-button {
-        font-size: 20px;
+    .expense-container {
+        padding: 0;
+    }
+
+    .product-bill {
+        box-shadow: none;
+    }
+
+    .print-summary {
+        margin-top: 4rem;
+        padding-right: 1rem;
+        font-size: 1.1rem;
+    }
+}
+
+
+.expense-container {
+    max-width: 900px;   /* Limits max width for readability */
+    margin: 0 auto;     /* Center horizontally */
+    padding: 0 20px;    /* 20px padding left and right */
+    background-color: #f9fafb; /* light background for subtle contrast */
+    min-height: 100vh;  /* full height */
+    box-sizing: border-box;
+}
+
+/* Keep rest same but tweak product-bill width to 100% of container */
+.product-bill {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+    width: 100%;  /* full width but inside container */
+    box-sizing: border-box;
+}
+
+/* Optional: make tables more readable on narrow screens */
+@media (max-width: 600px) {
+    .product-table th,
+    .product-table td {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
     }
 }
