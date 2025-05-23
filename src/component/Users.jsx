@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Updated to useNavigate
 import './style/users.css';
 import { AddUserPopup } from './Components';
+import BottomNav from './BottomNav';
 
 export default function Users() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -73,6 +74,8 @@ export default function Users() {
             {isPopupOpen && (
                 <AddUserPopup onClose={() => setIsPopupOpen(false)} onAddUser={handleAddUser} />
             )}
+
+            <BottomNav />
         </div>
     );
 }

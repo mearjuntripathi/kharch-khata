@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style/expenses.css';
 import { AddExpensePopup } from './Components';
+import BottomNav from './BottomNav';
 
 export default function Expenses() {
     const [showPopup, setShowPopup] = useState(false);
@@ -58,6 +59,8 @@ export default function Expenses() {
                     onAddExpense={handleAddExpense}
                 />
             )}
+
+            <BottomNav />
         </div>
     );
 }

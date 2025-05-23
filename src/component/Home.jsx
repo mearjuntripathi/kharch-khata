@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './style/home.css';
 import { BorrowPopup, GivePopup } from './Components';
+import BottomNav from './BottomNav';
 
 export default function Home() {
     const [isBorrowPopupOpen, setIsBorrowPopupOpen] = useState(false);
@@ -12,28 +13,17 @@ export default function Home() {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const expenses = JSON.parse(localStorage.getItem('expenses') || '[]');
 
-    const borrowedList = users.flatMap(user => 
-        user.borrowed.filter(item => !item.complete)
-    );
-
-    const giveList = users.flatMap(user => 
-        user.give.filter(item => !item.complete)
-    );
+    const borrowedList = users.flatMap(user => user.borrowed?.filter(item => !item.complete) || []);
+    const giveList = users.flatMap(user => user.give?.filter(item => !item.complete) || []);
 
     const totalBorrowed = borrowedList.reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
     const totalGive = giveList.reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
-
-    const totalExpenses = expenses
-        .reduce((total, expense) =>
-            total + (expense.products || [])
-                .reduce((sum, product) => sum + parseFloat(product.amount || 0), 0),
-            0);
+    const totalExpenses = expenses.reduce((total, expense) =>
+        total + (expense.products || []).reduce((sum, product) => sum + parseFloat(product.amount || 0), 0), 0
+    );
 
     const exportData = () => {
-        const data = {
-            users,
-            expenses
-        };
+        const data = { users, expenses };
         const json = JSON.stringify(data, null, 2);
         const blob = new Blob([json], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
@@ -61,69 +51,71 @@ export default function Home() {
                 alert('Error parsing JSON file.');
             }
         };
-        if (file) {
-            reader.readAsText(file);
-        }
-        setIsUploadPopupOpen(false); // Close popup after uploading
+        if (file) reader.readAsText(file);
+        setIsUploadPopupOpen(false);
     };
 
     return (
         <div className="home-container">
-            <div className="account"><i className="uil uil-user"></i></div>
-            <div className="home-box home-users-icon" onClick={() => navigate('/users')}>
-                <p className="home-label">Users</p>
+            <div className="header">
+                <h2>Welcome Back 👋</h2>
+                <p>Total Balance: ₹ {(totalBorrowed + totalGive + totalExpenses).toFixed(2)}</p>
+            </div>
+
+            <div className="card" onClick={() => navigate('/users')}>
                 <i className="uil uil-users-alt"></i>
+                <p>Users</p>
             </div>
-            <div className="home-box home-borrow" onClick={() => setIsBorrowPopupOpen(true)}>
-                <p className="home-label">Borrowed</p>
-                <span className="home-symbol">₹</span>{totalBorrowed.toFixed(2)}
+
+            <div className="card" onClick={() => setIsBorrowPopupOpen(true)}>
+                <i className="uil uil-arrow-down"></i>
+                <p>Borrowed</p>
+                <strong>₹ {totalBorrowed.toFixed(2)}</strong>
             </div>
-            <div className="home-box home-give" onClick={() => setIsGivePopupOpen(true)}>
-                <p className="home-label">Give</p>
-                <span className="home-symbol">₹</span>{totalGive.toFixed(2)}
+
+            <div className="card" onClick={() => setIsGivePopupOpen(true)}>
+                <i className="uil uil-arrow-up"></i>
+                <p>Given</p>
+                <strong>₹ {totalGive.toFixed(2)}</strong>
             </div>
-            <div className="home-box home-money-icon" onClick={() => navigate('/expenses')}>
-                <p className="home-label">Expenses</p>
+
+            <div className="card" onClick={() => navigate('/expenses')}>
                 <i className="uil uil-money-bill"></i>
-                <span>₹ {totalExpenses.toFixed(2)}</span>
+                <p>Expenses</p>
+                <strong>₹ {totalExpenses.toFixed(2)}</strong>
             </div>
 
-            {/* Borrow Popup */}
+            {/* Modals */}
             {isBorrowPopupOpen && (
-                <BorrowPopup
-                    onClose={() => setIsBorrowPopupOpen(false)}
-                    borrowedList={borrowedList}
-                />
+                <BorrowPopup onClose={() => setIsBorrowPopupOpen(false)} borrowedList={borrowedList} />
             )}
-
-            {/* Give Popup */}
             {isGivePopupOpen && (
-                <GivePopup
-                    onClose={() => setIsGivePopupOpen(false)}
-                    giveList={giveList}
-                />
+                <GivePopup onClose={() => setIsGivePopupOpen(false)} giveList={giveList} />
             )}
 
-            {/* Export and Import Buttons */}
-            <div className="bottom-right-buttons">
-                <button onClick={exportData}><i className="uil uil-import"></i></button>
-                <button onClick={() => setIsUploadPopupOpen(true)}> <i className="uil uil-upload"></i> </button>
+            {/* Floating buttons */}
+            <div className="fab-container">
+                <button className="fab" title="Export Data" onClick={exportData}>
+                    <i className="uil uil-import"></i>
+                </button>
+                <button className="fab" title="Upload JSON" onClick={() => setIsUploadPopupOpen(true)}>
+                    <i className="uil uil-upload"></i>
+                </button>
             </div>
 
-            {/* Upload Popup */}
+
+            {/* Upload popup */}
             {isUploadPopupOpen && (
-                <div className="upload-popup">
-                    <div className="upload-popup-content">
-                        <span className="close-popup" onClick={() => setIsUploadPopupOpen(false)}>×</span>
-                        <h2>Upload JSON File</h2>
-                        <input 
-                            type="file" 
-                            accept=".json" 
-                            onChange={handleFileUpload}
-                        />
+                <div className="modal">
+                    <div className="modal-content">
+                        <button className="close" onClick={() => setIsUploadPopupOpen(false)}>×</button>
+                        <h3>Upload JSON</h3>
+                        <input type="file" accept=".json" onChange={handleFileUpload} />
                     </div>
                 </div>
             )}
+
+            <BottomNav />
         </div>
     );
 }

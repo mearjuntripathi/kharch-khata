@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './style/expense.css';
 import { EditExpensePopup } from './Components'; // Import the EditExpensePopup
+import BottomNav from './BottomNav';
 
 export default function Expense() {
     const { expenseId } = useParams();
@@ -146,6 +147,8 @@ export default function Expense() {
                     onUpdate={handleUpdate}
                 />
             )}
+
+            <BottomNav />
         </div>
     );
 }

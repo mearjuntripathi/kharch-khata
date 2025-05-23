@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./style/user.css";
 import { AddBorrow, AddGive, UpdateBorrow, UpdateGive } from "./Components";
+import BottomNav from "./BottomNav";
 
 export default function User() {
     const { userId } = useParams(); // Get the userId from the URL
@@ -115,6 +116,7 @@ export default function User() {
                 />
             )}
 
+            <BottomNav />
         </div>
     );
 }
